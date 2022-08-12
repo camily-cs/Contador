@@ -14,6 +14,21 @@ public class Contador extends Application{
 	//variavel contador
 	private int contador = 0;
 	
+	//metodo para estilizacao condicional do label (altera a cor do label em numeros negativos ou positivos)
+	private void atualizarLabelNumero(Label label) {
+		label.setText(Integer.toString(contador));
+		
+		//removendo cores
+		label.getStyleClass().remove("corVerde");
+		label.getStyleClass().remove("corVermelha");
+		
+		//estilizacao condicional
+		if(contador > 0) {
+			label.getStyleClass().add("corVerde");
+		} else if(contador < 0) {
+			label.getStyleClass().add("corVermelha");
+		}
+	}
 	
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -31,7 +46,7 @@ public class Contador extends Application{
 		//adicionando funcionalidade ao btn decremento
 		botaoDecremento.setOnAction(e -> {
 			contador--;
-			labelNumero.setText(Integer.toString(contador));
+			atualizarLabelNumero(labelNumero);
 		});
 		
 		//btn incremento
@@ -41,7 +56,7 @@ public class Contador extends Application{
 		//adicionando funcionalidade ao btn incremento
 		botaoIncremento.setOnAction(e -> {
 			contador++;
-			labelNumero.setText(Integer.toString(contador));
+			atualizarLabelNumero(labelNumero);
 		});
 		
 		
