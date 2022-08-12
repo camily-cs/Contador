@@ -10,39 +10,75 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Contador extends Application{
+	
+	//variavel contador
+	private int contador = 0;
+	
+	
 	public void start(Stage primaryStage) throws Exception {
 		
-		//Criando label e btns
+		//label
 		Label labelTitulo = new Label("Contador");
-		Label labelNumero = new Label("0");	
+		labelTitulo.getStyleClass().add("titulo");
+		
+		Label labelNumero = new Label("0");
+		labelNumero.getStyleClass().add("numero");
+		
+		//btn decremento  
 		Button botaoDecremento = new Button("-");
+		//css btn decremento
+		botaoDecremento.getStyleClass().add("btn");
+		//adicionando funcionalidade ao btn decremento
+		botaoDecremento.setOnAction(e -> {
+			contador--;
+			labelNumero.setText(Integer.toString(contador));
+		});
+		
+		//btn incremento
 		Button botaoIncremento = new Button("+");
+		//css btn incremento
+		botaoIncremento.getStyleClass().add("btn");
+		//adicionando funcionalidade ao btn incremento
+		botaoIncremento.setOnAction(e -> {
+			contador++;
+			labelNumero.setText(Integer.toString(contador));
+		});
 		
 		
-		//Criando HBox "boxBotoes" para armazenar botoes, centralizando e definindo espacamento
+		//HBox "boxBotoes" para armazenar botoes  
 		HBox boxBotoes = new HBox();
-		boxBotoes.setAlignment(Pos.CENTER);	
-		boxBotoes.setSpacing(10);
+		boxBotoes.setAlignment(Pos.CENTER);	//centralizando
+		boxBotoes.setSpacing(10); //definindo espacamento entre btns
 		//Armazenando botoes na "boxBotoes"
 		boxBotoes.getChildren().add(botaoDecremento);
 		boxBotoes.getChildren().add(botaoIncremento);
 		
 		
-		//Criando VBox "boxPrincipal", centralizando e definindo espacamento
-		VBox boxPrincipal = new VBox();
-		boxPrincipal.setAlignment(Pos.CENTER);
-		boxBotoes.setSpacing(10);
-		//Armazenando labels e a "boxBotoes" na "boxPrincipal"
-		boxPrincipal.getChildren().add(labelTitulo);
-		boxPrincipal.getChildren().add(labelNumero);
-		boxPrincipal.getChildren().add(boxBotoes);
+		//VBox "boxContainer" 
+		VBox boxContainer = new VBox();
+		boxContainer.getStyleClass().add("container"); //
+		boxContainer.setAlignment(Pos.CENTER); // centralizando
+		boxBotoes.setSpacing(10); //espacamento
+		//Armazenando labels e a "boxBotoes" na "boxContainer"
+		boxContainer.getChildren().add(labelTitulo);
+		boxContainer.getChildren().add(labelNumero);
+		boxContainer.getChildren().add(boxBotoes);
 		
 		
-		//Criando e inserindo cena no palco
-		Scene cenaPrincipal = new Scene(boxPrincipal, 400, 400);
+		//Importando Css
+		String caminhoCss = getClass().getResource("/contador/Style.css").toExternalForm();
+		
+		//Criando cena
+		Scene cenaPrincipal = new Scene(boxContainer, 400, 400);
+		
+		//adicionando Css
+		cenaPrincipal.getStylesheets().add(caminhoCss);
+		cenaPrincipal.getStylesheets().add("https://fonts.googleapis.com/css2?family=Roboto"); //fonte
+		
+		//inserindo cena no palco
 		primaryStage.setScene(cenaPrincipal);
 		
-		
+		//executando
 		primaryStage.show();
 	}
 	
